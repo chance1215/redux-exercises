@@ -4,28 +4,31 @@ import { connect } from 'react-redux'
 import { addTodo, removeTodo } from './redux/todos.actions'
 
 class App extends Component {
-  state = { newTodo: '' }
-  handleChange = e => this.setState({ newTodo: e.target.value })
+  state = { todo: '' }
+  handleChange = e => this.setState({ todo: e.target.value })
   render() {
+  let listOfTodos = this.props.todos.map(todo => <li key={todo.id}>{todo.title}</li>)
     return (
       <div className="App">
         <p>
-          New Todo: 
-          <input 
+          New Todo:
+          <input
             type="text"
             onChange={this.handleChange}
-            value={this.state.newTodo}
+            value={this.state.todo}
           />
           <button
-            onClick={() => this.props.addTodo(this.state.newTodo)}
+            onClick={() => this.props.addTodo(this.state.todo)}
           >Submit</button>
         </p>
         <h3>Todo List:</h3>
-        <ul>Put the todos here...</ul>
+        <ul>{listOfTodos}</ul>
       </div>
     )
   }
 }
+const mapStateToProps = state => ({
+  todos: state.todos
+})
 
-
-export default connect(null, { addTodo, removeTodo })(App)
+export default connect(mapStateToProps, { addTodo, removeTodo })(App)

@@ -4,7 +4,11 @@ export const REMOVE_TODO = 'REMOVE_TODO'
 export const addTodo = (todo) => {
   return {
     type: ADD_TODO,
-    payload: todo
+    payload:{
+      id: Math.random(),
+      title:todo,
+      completed:false
+    }
   }
 }
 
